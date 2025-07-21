@@ -1,0 +1,2 @@
+public class TelemetryApp {
+}
