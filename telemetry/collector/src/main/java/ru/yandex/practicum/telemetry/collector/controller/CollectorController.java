@@ -45,7 +45,7 @@ public class CollectorController {
             throw new SensorHandlerNotFoundException("Sensor event not found: " + event.getType());
         }
 
-        log.debug("Найден обработчик: {}", handler.getClass().getSimpleName());
+        log.debug("Handler found: {}", handler.getClass().getSimpleName());
         handler.handle(event);
     }
 
@@ -59,7 +59,7 @@ public class CollectorController {
             throw new HubHandlerNotFoundException("The hub event was not found: " + event.getType());
         }
 
-        log.debug("Найден обработчик: {}", handler.getClass().getSimpleName());
+        log.debug("Handler found: {}", handler.getClass().getSimpleName());
         handler.handle(event);
     }
 }
