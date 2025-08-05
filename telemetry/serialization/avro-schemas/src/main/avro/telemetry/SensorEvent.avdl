@@ -9,7 +9,7 @@ protocol SensorEventProtocol {
 
   record LightSensorEventAvro {
 	  int link_quality;
-	  int luminocity;
+	  int luminosity;
   }
 
   record MotionSensorEventAvro {
@@ -31,6 +31,6 @@ protocol SensorEventProtocol {
 	  string id;
 	  string hub_id;
 	  timestamp_ms? timestamp;
-	  union {TemperatureSensorEventAvro, MotionSensorEventAvro, LightSensorEventAvro, ClimateSensorEventAvro, SwitchSensorAvro} data;
+	  union {TemperatureSensorEventAvro, MotionSensorEventAvro, LightSensorEventAvro, ClimateSensorEventAvro, SwitchSensorAvro} payload;
   }
 }
