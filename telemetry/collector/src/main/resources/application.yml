@@ -1,7 +1,6 @@
 spring:
   application:
     name: collector
-
   kafka:
     producer:
       bootstrap-servers: localhost:9092
@@ -17,7 +16,12 @@ logging:
       practicum:
         kafka: INFO
     org:
-      springframework: ERROR
+      springframework:
+        boot:
+          context:
+            config: DEBUG
+        core:
+          env: DEBUG
     apache:
       kafka: WARN
 
