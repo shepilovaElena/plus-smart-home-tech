@@ -3,14 +3,10 @@ package ru.yandex.practicum.telemetry.collector.model.hub;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.time.Instant;
-
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@ToString(callSuper = true)
 public class DeviceAddedEvent extends DeviceRemovedEvent {
     @NotNull
     private String id;

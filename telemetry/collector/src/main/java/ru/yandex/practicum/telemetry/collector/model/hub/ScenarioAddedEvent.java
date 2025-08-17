@@ -3,6 +3,7 @@ package ru.yandex.practicum.telemetry.collector.model.hub;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -11,10 +12,10 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 public class ScenarioAddedEvent extends HubEvent {
+    @Size(min = 3, max = 255)
     @NotBlank
-    @NotNull
     private String name;
     @NotEmpty
     private List<ScenarioCondition> conditions;
