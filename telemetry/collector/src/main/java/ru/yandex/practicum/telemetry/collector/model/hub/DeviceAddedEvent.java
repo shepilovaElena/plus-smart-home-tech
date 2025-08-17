@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString(callSuper = true)
-public class DeviceAddedEvent extends DeviceRemovedEvent {
+public class DeviceAddedEvent extends HubEvent {
     @NotBlank
     private String id;
     @NotNull
