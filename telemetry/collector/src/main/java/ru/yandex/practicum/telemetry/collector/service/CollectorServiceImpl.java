@@ -2,10 +2,13 @@ package ru.yandex.practicum.telemetry.collector.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.producer.Producer;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.stereotype.Service;
-import ru.yandex.practicum.telemetry.collector.kafkaClient.CollectorKafkaProperties;
 import ru.yandex.practicum.kafka.telemetry.event.HubEventAvro;
 import ru.yandex.practicum.kafka.telemetry.event.SensorEventAvro;
+import ru.yandex.practicum.telemetry.collector.kafkaClient.KafkaProducerService;
+import ru.yandex.practicum.telemetry.collector.kafkaClient.Topics;
 import ru.yandex.practicum.telemetry.collector.model.hub.HubEvent;
 import ru.yandex.practicum.telemetry.collector.model.sensor.SensorEvent;
 
@@ -13,21 +16,21 @@ import ru.yandex.practicum.telemetry.collector.model.sensor.SensorEvent;
 @RequiredArgsConstructor
 @Slf4j
 public class CollectorServiceImpl implements CollectorService {
-
-    private final CollectorKafkaProperties collectorProps;
-    private final KafkaEventSender eventSender;
-    private final SensorEventHandler sensorHandler;
     private final HubEventHandler hubHandler;
+    private final SensorEventHandler sensorHandler;
+    private final KafkaProducerService producerService;
 
     @Override
     public void sendSensorEvent(SensorEvent sensorEvent) {
+        Producer<String, SensorEventAvro> sensorProducer = producerService.createSensorEventProducer();
         SensorEventAvro avro = sensorHandler.mapToAvro(sensorEvent);
-        eventSender.send(collectorProps.getTopics().getSensorsEvents(), avro.getHubId(), avro.getTimestamp().toEpochMilli(), avro);
+        sensorProducer.send(new ProducerRecord<>(Topics.HUB_TOPIC, avro.getHubId(), avro));
     }
 
     @Override
     public void sendHubEvent(HubEvent hubEvent) {
+        Producer<String, HubEventAvro> hubProducer = producerService.createHubEventProducer();
         HubEventAvro avro = hubHandler.mapToAvro(hubEvent);
-        eventSender.send(collectorProps.getTopics().getHubsEvents(), avro.getHubId(), avro.getTimestamp().toEpochMilli(), avro);
+        hubProducer.send(new ProducerRecord<>(Topics.SENSOR_TOPIC, avro.getHubId(), avro));
     }
 }
