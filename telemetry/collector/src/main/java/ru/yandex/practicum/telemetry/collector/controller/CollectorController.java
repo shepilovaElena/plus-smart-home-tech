@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.telemetry.collector.model.hub.HubEvent;
 import ru.yandex.practicum.telemetry.collector.model.sensor.SensorEvent;
 import ru.yandex.practicum.telemetry.collector.service.CollectorService;
+import ru.yandex.practicum.telemetry.collector.service.CollectorServiceImpl;
 
 @RestController
 @RequestMapping("/events")
@@ -17,7 +18,7 @@ import ru.yandex.practicum.telemetry.collector.service.CollectorService;
 @Slf4j
 @SuppressWarnings("unused")
 public class CollectorController {
-    private final CollectorService collectorService;
+    private final CollectorServiceImpl collectorService;
 
     @PostMapping("/sensors")
     public void sendSensorEvent(@Valid @RequestBody SensorEvent sensorEvent) {
