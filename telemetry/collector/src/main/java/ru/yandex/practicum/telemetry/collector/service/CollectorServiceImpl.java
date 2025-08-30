@@ -24,13 +24,13 @@ public class CollectorServiceImpl implements CollectorService {
     public void sendSensorEvent(SensorEvent sensorEvent) {
         Producer<String, SensorEventAvro> sensorProducer = producerService.createSensorEventProducer();
         SensorEventAvro avro = sensorHandler.mapToAvro(sensorEvent);
-        sensorProducer.send(new ProducerRecord<>(Topics.HUB_TOPIC, avro.getHubId(), avro));
+        sensorProducer.send(new ProducerRecord<>(Topics.SENSOR_TOPIC, avro.getHubId(), avro));
     }
 
     @Override
     public void sendHubEvent(HubEvent hubEvent) {
         Producer<String, HubEventAvro> hubProducer = producerService.createHubEventProducer();
         HubEventAvro avro = hubHandler.mapToAvro(hubEvent);
-        hubProducer.send(new ProducerRecord<>(Topics.SENSOR_TOPIC, avro.getHubId(), avro));
+        hubProducer.send(new ProducerRecord<>(Topics.HUB_TOPIC, avro.getHubId(), avro));
     }
 }
