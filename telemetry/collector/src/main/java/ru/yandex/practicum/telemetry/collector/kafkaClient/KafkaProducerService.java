@@ -26,7 +26,7 @@ public class KafkaProducerService {
     private Properties addProperties() {
         Properties appProperties = new Properties();
         try (InputStream input = getClass().getClassLoader()
-                .getResourceAsStream("application")) {
+                .getResourceAsStream("application.yml")) {
             if (input == null) {
                 throw new RuntimeException("Unable to find application");
             }
