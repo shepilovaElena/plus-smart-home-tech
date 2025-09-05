@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: collector
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: ru.practicum.kafka.GeneralAvroSerializer
+
+logging:
+  level:
+    ru:
+      yandex:
+        practicum:
+          telemetry: TRACE
+      practicum:
+        kafka: INFO
+    org:
+      springframework:
+        boot:
+          context:
+            config: DEBUG
+        core:
+          env: DEBUG
+    apache:
+      kafka: WARN
+
