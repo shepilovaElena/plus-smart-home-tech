@@ -5,9 +5,9 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.stereotype.Component;
+import ru.practicum.kafka.GeneralAvroSerializer;
 import ru.yandex.practicum.kafka.telemetry.event.HubEventAvro;
 import ru.yandex.practicum.kafka.telemetry.event.SensorEventAvro;
-import ru.yandex.practicum.telemetry.collector.model.sensor.SensorEvent;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,7 +41,7 @@ public class KafkaProducerService {
         kafkaProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 appProperties.getProperty("kafka.producer.key-serializer", StringSerializer.class.getName()));
         kafkaProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
-                appProperties.getProperty("kafka.producer.value-serializer", StringSerializer.class.getName()));
+                appProperties.getProperty("kafka.producer.value-serializer", GeneralAvroSerializer.class.getName()));
 
         return kafkaProps;
     }
